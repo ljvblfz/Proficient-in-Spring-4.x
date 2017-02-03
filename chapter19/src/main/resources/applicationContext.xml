@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
+
+    <bean id="springOxm" class="com.smart.oxm.SpringOxmSample"
+          p:marshaller-ref="castorMarshaller"
+          p:unmarshaller-ref="castorMarshaller"
+    />
+
+    <bean id="castorMarshaller" class="org.springframework.oxm.castor.CastorMarshaller"
+          p:mappingLocation="classpath:/mapping.xml"
+    />
+
+    <import resource="spring-oxm.xml"></import>
+
+</beans>

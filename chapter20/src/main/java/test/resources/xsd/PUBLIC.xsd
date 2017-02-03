@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" xmlns="PUBLIC" targetNamespace="PUBLIC">
+	<xsd:element name="BLOGTAG" type="BLOGTAG__type" />
+	<xsd:element name="BLOGARTICLECOMMENT" type="BLOGARTICLECOMMENT__type" />
+	<xsd:element name="BLOG" type="BLOG__type" />
+	<xsd:element name="BLOGTAGARTICLE" type="BLOGTAGARTICLE__type" />
+	<xsd:element name="BLOGARTICLE" type="BLOGARTICLE__type" />
+	<xsd:element name="DBMAINTAIN_SCRIPTS" type="DBMAINTAIN_SCRIPTS__type" />
+	<xsd:complexType name="BLOGTAG__type">
+		<xsd:attribute name="NAME" use="optional" />
+		<xsd:attribute name="ID" use="optional" />
+	</xsd:complexType>
+	<xsd:complexType name="BLOGARTICLECOMMENT__type">
+		<xsd:attribute name="ARTICLEID" use="optional" />
+		<xsd:attribute name="LASTMODIFIED" use="optional" />
+		<xsd:attribute name="TEXT" use="optional" />
+		<xsd:attribute name="ID" use="optional" />
+		<xsd:attribute name="CREATEAT" use="optional" />
+		<xsd:attribute name="AUTHORNAME" use="optional" />
+		<xsd:attribute name="TITLE" use="optional" />
+	</xsd:complexType>
+	<xsd:complexType name="BLOG__type">
+		<xsd:attribute name="OWNERID" use="optional" />
+		<xsd:attribute name="OWNERNAME" use="optional" />
+		<xsd:attribute name="ID" use="optional" />
+		<xsd:attribute name="CREATEAT" use="optional" />
+	</xsd:complexType>
+	<xsd:complexType name="BLOGTAGARTICLE__type">
+		<xsd:attribute name="ARTICLEID" use="optional" />
+		<xsd:attribute name="ARTICLECULTUREID" use="optional" />
+		<xsd:attribute name="TAGID" use="optional" />
+	</xsd:complexType>
+	<xsd:complexType name="BLOGARTICLE__type">
+		<xsd:attribute name="LASTMODIFIED" use="optional" />
+		<xsd:attribute name="TEXT" use="optional" />
+		<xsd:attribute name="ID" use="optional" />
+		<xsd:attribute name="BLOG_ID" use="optional" />
+		<xsd:attribute name="CREATEAT" use="optional" />
+		<xsd:attribute name="AUTHORNAME" use="optional" />
+		<xsd:attribute name="TITLE" use="optional" />
+	</xsd:complexType>
+	<xsd:complexType name="DBMAINTAIN_SCRIPTS__type">
+		<xsd:attribute name="FILE_NAME" use="optional" />
+		<xsd:attribute name="EXECUTED_AT" use="optional" />
+		<xsd:attribute name="VERSION" use="optional" />
+		<xsd:attribute name="SUCCEEDED" use="optional" />
+		<xsd:attribute name="CHECKSUM" use="optional" />
+		<xsd:attribute name="FILE_LAST_MODIFIED_AT" use="optional" />
+	</xsd:complexType>
+</xsd:schema>

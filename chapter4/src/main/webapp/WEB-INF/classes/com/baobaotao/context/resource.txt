@@ -1,0 +1,2 @@
+timeout=12s
+cycle=20s

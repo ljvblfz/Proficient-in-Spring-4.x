@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<cbf:binding xmlns:cbf="http://www.castor.org/SourceGenerator/Binding">
+    <!--定义包结构-->
+    <cbf:package>
+        <cbf:name>com.smart.domain.castor</cbf:name>
+        <cbf:namespace>http://www.baobaotao.com/castor/user</cbf:namespace>
+    </cbf:package>
+</cbf:binding>

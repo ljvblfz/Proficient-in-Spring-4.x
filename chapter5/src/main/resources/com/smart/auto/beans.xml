@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+         http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
+         
+
+  <bean id="office" class="com.smart.auto.Office"/>
+  <bean id="office1" class="com.smart.auto.Office" autowire-candidate="false"/>
+  <bean id="boss" class="com.smart.auto.Boss" autowire="constructor">
+     <constructor-arg index="0" value="John"/>
+  </bean>
+  
+   <bean id="car" class="com.smart.auto.Car" scope="singleton">
+     <property name="brand" value="红旗CA72"/>
+     <property name="price" value="2000"/>
+  </bean> 
+
+  
+</beans>

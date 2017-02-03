@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xmlns:p="http://www.springframework.org/schema/p" xmlns:aop="http://www.springframework.org/schema/aop"
+	   xmlns:tx="http://www.springframework.org/schema/tx"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
+
+
+<bean id="timerTask"
+		class="com.smart.basic.timer.SimpleTimerTask" />
+		
+	<bean id="scheduledTask"
+		  class="org.springframework.scheduling.timer.ScheduledTimerTask"
+		  p:delay="10000"
+		  p:period="10000"
+		  p:timerTask-ref="timerTask1"/>
+
+
+	<bean id="timer"
+		class="org.springframework.scheduling.timer.TimerFactoryBean">
+		<property name="scheduledTimerTasks">
+			<list>
+				<ref bean="scheduledTask" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="myService" class="com.smart.service.MyService" />
+	<bean id="timerTask1"
+		  class="org.springframework.scheduling.timer.MethodInvokingTimerTaskFactoryBean"
+		  p:targetObject-ref="myService"
+		  p:targetMethod="doJob"/>
+
+	
+</beans>

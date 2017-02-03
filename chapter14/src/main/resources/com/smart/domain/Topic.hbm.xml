@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD//EN"
+		"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping auto-import="true" default-lazy="false">
+	<class name="com.smart.domain.Topic" table="t_topic">
+		<id name="topicId" column="topic_id">
+			<generator class="assigned" />
+		</id>
+		<property name="topicTitle" column="topic_title" />
+		<property name="userId" column="user_id" />
+		<property name="topicTime" column="topic_time" type="date" />
+		<property name="topicViews" column="topic_views" />
+		<many-to-one name="forum" column="forum_id"
+			class="com.smart.domain.Forum" />
+		<set name="posts" inverse="true" cascade="none">
+			<key column="topic_id" />
+			<one-to-many class="com.smart.domain.Post" />
+		</set>
+		
+	</class>
+</hibernate-mapping>

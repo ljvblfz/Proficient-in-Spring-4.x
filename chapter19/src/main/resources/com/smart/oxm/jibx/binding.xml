@@ -1,0 +1,20 @@
+<binding>
+  <mapping name="user" class="com.smart.domain.User">
+    <value name="userName" field="userName"/><!-- name:xml元素名称，field:object 对象名称 -->
+    <value name="password" field="password" usage="optional" />
+    <!--
+    <value name="password" field="password" 
+           serializer="org.jibx.runtime.Utility.serializeCharString" 
+           deserializer="org.jibx.runtime.Utility.deserializeCharString"/>
+    -->
+    <value name="credits" field="credits" usage="optional" />
+    <!-- list  -->
+    <collection name="logs" field="logs" factory="com.smart.oxm.jibx.JiBXInterfaceFactory.getArrayListInstance">
+    	<structure name="log" type="com.smart.domain.LoginLog">
+	      <value name="ip" field="ip"/>
+	      <value name="loginDate" field="loginDate"/>
+	    </structure>
+    </collection>
+    <!-- map  -->
+  </mapping>
+</binding>

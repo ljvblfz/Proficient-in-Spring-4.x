@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+         http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
+	<bean id="car" class="com.smart.attr.Car" lazy-init="default">
+		<property name="brand">
+			<value>
+				<![CDATA[红旗&CA72]]>
+			</value>
+		</property>
+		<property name="maxSpeed">
+			<value>200</value>
+		</property>
+		<property name="price" value="2000.00" />
+	</bean>
+
+	<bean id="parentBoss" abstract="true"
+		class="com.smart.attr.Boss">
+		<property name="favorites">
+			<set>
+				<value>看报</value>
+				<value>赛车</value>
+				<value>高尔夫</value>
+			</set>
+		</property>
+	</bean>
+	<bean id="childBoss" parent="parentBoss">
+		<property name="favorites">
+			<set merge="true">
+				<value>爬山</value>
+				<value>游泳</value>
+			</set>
+		</property>
+	</bean>	
+	
+
+	<!-- 引用Bean -->
+	<bean id="boss1" class="com.smart.attr.Boss">
+		<property name="car" ref="car" />
+		<property name="favorites">
+			<!-- list>
+				<value>看报</value>
+				<value>赛车</value>
+				<value>高尔夫</value>
+				</list -->
+			<set>
+				<value>看报</value>
+				<value>赛车</value>
+				<value>高尔夫</value>
+			</set>
+		</property>
+		<property name="jobs">
+			<map>
+				<entry >
+					<key>
+						<value>AM</value>
+					</key>
+					<value>会见客户</value>
+				</entry>
+				<entry>
+					<key>
+						<value>PM</value>
+					</key>
+					<value>公司内部会议</value>
+				</entry>
+			</map>
+		</property>
+		<property name="mails">
+			<props>
+				<prop key="jobMail">john-office@smart.com</prop>
+				<prop key="lifeMail">john-life@smart.com</prop>
+			</props>
+		</property>
+		<property name="jobTime">
+			<map>
+				<entry>
+					<key>
+						<value>会见客户</value>
+					</key>
+					<value>124</value>
+				</entry>
+			</map>
+		</property>
+	</bean>
+
+	<!-- 内部Bean -->
+	<bean id="boss2" class="com.smart.attr.Boss">
+		<property name="car">
+			<bean class="com.smart.attr.Car">
+				<property name="maxSpeed" value="200" />
+				<property name="price" value="2000.00" />
+			</bean>
+		</property>
+	</bean>
+
+
+	<bean id="sportsCar" class="com.smart.attr.SportsCar">
+		<property name="brand">
+			<bean id="car.brand"
+				class="org.springframework.beans.factory.config.PropertyPathFactoryBean">
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="brand"
+		class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+		<property name="targetObject">
+			<ref bean="car" />
+		</property>
+		<property name="targetMethod">
+			<value>getBrand</value>
+		</property>
+	</bean>
+
+	<bean id="myField"
+		class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean">
+		<property name="staticField"
+			value="com.smart.attr.Car.HONG_QI" />
+		<property name="targetObject" ref="car"></property>
+		<property name="targetField" value="brand"></property>
+	</bean>
+
+
+	<bean id="foo" class="com.smart.attr.Foo">
+		<property name="IDCode" value="070101" />
+	</bean>
+</beans>

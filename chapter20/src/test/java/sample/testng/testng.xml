@@ -1,0 +1,11 @@
+<test name="group1">
+    <groups>
+        <run>
+            <include name="group1"/>
+        </run>
+    </groups>
+    <classes>
+        <class name="sample.testng.TestNGGroupsTest"/>
+    </classes>
+</test>
+

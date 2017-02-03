@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD//EN"
+		"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping auto-import="true" default-lazy="false">
+	<class name="com.smart.domain.Post" table="t_post">
+		<id name="postId" column="post_id">
+			<generator class="assigned" />
+		</id>
+		<property name="userId" column="user_id"/>
+		<property name="postText" column="post_text" 
+		type="org.springframework.orm.hibernate4.support.ClobStringType"/>
+		<property name="postAttach" column="post_attach" 
+		 type="org.springframework.orm.hibernate4.support.BlobByteArrayType"/>
+		<property name="postTime" column="post_time" type="date" />
+		<many-to-one name="topic" column="topic_id"
+			         class="com.smart.domain.Topic" />
+	</class>
+</hibernate-mapping>

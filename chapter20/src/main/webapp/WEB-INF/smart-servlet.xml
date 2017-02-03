@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+       http://www.springframework.org/schema/context 
+       http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+
+	<!--① 扫描web包，应用Spring的注解 -->
+	<context:component-scan base-package="com.smart.web" />
+
+	<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping" />
+	<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+		<property name="messageConverters">
+			<list>
+				<bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+					<property name="supportedMediaTypes">
+						<list>
+							<value>text/html;charset=UTF-8</value>
+							<value>application/json;charset=UTF-8</value>
+						</list>
+					</property>
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="restTemplate" class="org.springframework.web.client.RestTemplate">
+		<property name="messageConverters">
+			<list>
+				<bean id="stringHttpMessageConverter"
+					class="org.springframework.http.converter.StringHttpMessageConverter" />
+				<bean id="formHttpMessageConverter"
+					class="org.springframework.http.converter.FormHttpMessageConverter" />
+			</list>
+		</property>
+	</bean>
+	
+	<!--
+	<bean id="xStreamMarshaller" class="org.springframework.oxm.xstream.XStreamMarshaller">
+		<property name="annotatedClasses">
+			<list>
+				<value>com.smart.domain.User</value>
+			</list>
+		</property>
+	</bean>
+	-->
+	<bean id="defaultAnnotationHandlerMapping"
+		class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping" />
+	<bean id="annotationMethodHandlerAdapter"
+		class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter" />
+		<!--
+		<property name="messageConverters">
+			<list>
+			    <ref bean="stringHttpMessageConverter" />
+			    <ref bean="jsonConverter" />
+			</list>
+		</property>
+	</bean>
+	-->
+
+	
+
+	<!-- xml视图，XStreamMarshaller，可以转换任何形式的java对象 --><!--
+	<bean name="xStreamMarshallingView"
+		class="org.springframework.web.servlet.view.json.MappingJacksonJsonView">
+		<property name="marshaller">
+			<bean class="org.springframework.oxm.xstream.XStreamMarshaller">
+				  为了初始化XStreamMarshaller，这个类会把我们接口中得到结果以XML文档形式展现出来 
+				<property name="autodetectAnnotations" value="true" />
+			</bean>
+		</property>
+	</bean>
+
+	-->
+	<!-- 视图解析器，根据视图的名称new ModelAndView(name)，在配置文件查找对应的bean配置 -->
+	<!--<bean class="org.springframework.web.servlet.view.BeanNameViewResolver">
+		<property name="order" value="3" />
+	</bean>
+
+	-->
+	<!--② 配置视图解析器，将ModelAndView及字符串解析为具体的页面 -->
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+		p:viewClass="org.springframework.web.servlet.view.JstlView" p:prefix="/WEB-INF/jsp/"
+		p:suffix=".jsp" />
+
+	
+</beans>

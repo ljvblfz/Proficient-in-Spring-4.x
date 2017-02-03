@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema elementFormDefault="qualified" version="1.0"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+	xmlns:tn="http://www.baobaotao.com/domain/jaxb"
+	targetNamespace="http://www.baobaotao.com/domain/jaxb"
+	jaxb:version="2.0" >
+	<xs:annotation>
+		<xs:appinfo>
+			<jaxb:globalBindings>
+				<jaxb:javaType name="java.util.Calendar" xmlType="xs:date"
+					parseMethod="javax.xml.bind.DatatypeConverter.parseDate"
+					printMethod="javax.xml.bind.DatatypeConverter.printDate" />
+			</jaxb:globalBindings>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:element name="user">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="userName" type="xs:string" />
+				<xs:element name="password" type="xs:string" />
+				<xs:element name="credits" type="xs:int" />
+				<xs:element name="lastIp" type="xs:string" />
+				<xs:element name="logs">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element maxOccurs="unbounded" name="loginLog"
+								type="tn:LoginLog" />
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute name="userId" type="xs:int" />
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="LoginLog">
+		<xs:sequence>
+			<xs:element name="userId" type="xs:string" />
+			<xs:element name="ip" type="xs:string" />
+			<xs:element name="loginDate" type="xs:date" />
+		</xs:sequence>
+		<xs:attribute name="loginLogId" type="xs:int" />
+	</xs:complexType>
+</xs:schema>

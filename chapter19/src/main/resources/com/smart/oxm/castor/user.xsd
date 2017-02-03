@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            targetNamespace="http://www.baobaotao.com/castor/use">
+	<xsd:element name="user">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="userId" type="xsd:string" />
+				<xsd:element name="userName" type="xsd:string" />
+				<xsd:element name="password" type="xsd:string" />
+				<xsd:element name="credits" type="xsd:int" />
+				<xsd:element name="lastIp" type="xsd:string" />
+				<xsd:element name="logs">
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element maxOccurs="unbounded" minOccurs="1"  ref="LoginLog" />
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="LoginLog">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="loginLogId" type="xsd:string" />
+				<xsd:element name="userId" type="xsd:string" />
+				<xsd:element name="ip" type="xsd:string" />
+				<xsd:element name="loginDate" type="xsd:date" />
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>
+

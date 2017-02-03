@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:p="http://www.springframework.org/schema/p"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
+
+<import resource="classpath:applicationContext-dao.xml" />
+	<bean id="txManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	<bean id="bbtForumTarget" 
+	      class="com.smart.service.BbtForum"
+	      p:forumDao-ref="forumDao"
+	      p:topicDao-ref="topicDao"
+	      p:postDao-ref="postDao"/>
+
+	<bean id="bbtForum"
+		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean"
+		p:transactionManager-ref="txManager"
+		p:target-ref="bbtForumTarget">
+		<property name="transactionAttributes">
+			<props>
+				<prop key="addTopic">
+					PROPAGATION_REQUIRED,+PessimisticLockingFailureException
+                </prop>
+				<prop key="get*">PROPAGATION_REQUIRED,readOnly</prop>
+				<prop key="*">PROPAGATION_REQUIRED,-tion</prop>
+			</props>
+		</property>
+	</bean>
+</beans>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" xmlns:dflt="PUBLIC">
+	<xsd:import namespace="PUBLIC" schemaLocation="PUBLIC.xsd" />
+	<xsd:element name="dataset">
+		<xsd:complexType>
+			<xsd:choice minOccurs="0" maxOccurs="unbounded">
+				<xsd:element name="BLOGTAG" type="dflt:BLOGTAG__type" />
+				<xsd:element name="BLOGARTICLECOMMENT" type="dflt:BLOGARTICLECOMMENT__type" />
+				<xsd:element name="BLOG" type="dflt:BLOG__type" />
+				<xsd:element name="BLOGTAGARTICLE" type="dflt:BLOGTAGARTICLE__type" />
+				<xsd:element name="BLOGARTICLE" type="dflt:BLOGARTICLE__type" />
+				<xsd:element name="DBMAINTAIN_SCRIPTS" type="dflt:DBMAINTAIN_SCRIPTS__type" />
+				<xsd:any namespace="PUBLIC" />
+			</xsd:choice>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

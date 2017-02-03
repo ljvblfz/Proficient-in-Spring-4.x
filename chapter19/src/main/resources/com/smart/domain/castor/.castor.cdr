@@ -1,0 +1,4 @@
+#Sun Feb 13 23:15:18 CST 2011
+com.smart.domain.castor.User=com.smart.domain.castor.descriptors.UserDescriptor
+com.smart.domain.castor.Logs=com.smart.domain.castor.descriptors.LogsDescriptor
+com.smart.domain.castor.LoginLog=com.smart.domain.castor.descriptors.LoginLogDescriptor

@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xmlns:p="http://www.springframework.org/schema/p" xmlns:aop="http://www.springframework.org/schema/aop"
+	   xmlns:tx="http://www.springframework.org/schema/tx"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
+	<context:component-scan base-package="com.smart"/>
+	
+	<context:property-placeholder location="classpath:jdbc.properties" />
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close"
+		p:driverClassName="${jdbc.driverClassName}"
+		p:url="${jdbc.url}"
+		p:username="${jdbc.username}"
+		p:password="${jdbc.password}" />
+
+	<bean id="jdbcTemplate" 
+	      class="org.springframework.jdbc.core.JdbcTemplate"
+	      p:dataSource-ref="dataSource"/>
+
+	<bean id="namedParamJdbcTemplate" 
+	      class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
+	      <constructor-arg ref="dataSource"/>
+	</bean>      
+
+	<bean id="nativeJdbcExtractor"
+		class="org.springframework.jdbc.support.nativejdbc.CommonsDbcpNativeJdbcExtractor"
+		lazy-init="true" />
+
+	<bean id="defaultLobHandler" class="org.springframework.jdbc.support.lob.DefaultLobHandler"
+		lazy-init="true" />
+		
+    <!-- 1：基于数据库序列的自增器 -->
+    <!-- 
+    <bean id="incre" 
+         class="org.springframework.jdbc.support.incrementer.OracleSequenceMaxValueIncrementer"
+         p:incrementerName="seq_post_id"
+         p:dataSource-ref="dataSource"/>  
+     -->
+     
+    <!-- 1：基于数据表的自增器 --> 
+	<bean id="incre"
+		class="org.springframework.jdbc.support.incrementer.MySQLMaxValueIncrementer"
+		p:incrementerName="t_post_id"
+		p:columnName="sequence_id"
+		p:cacheSize="10"
+		p:dataSource-ref="dataSource"/>
+
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager"
+		p:dataSource-ref="dataSource"/>
+	<bean id="bbtForum" class="com.smart.service.JdbcBbtForum"
+		  p:forumDao-ref="forumDao"/>
+</beans>

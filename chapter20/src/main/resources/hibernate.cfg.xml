@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+	<session-factory>
+		<!-- SQL方言，这边设定的是MYSQL -->
+		<property name="dialect">org.hibernate.dialect.MySQL5Dialect</property>
+		<!-- 数据源的名称 -->
+		<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+		<property name="hibernate.connection.url">jdbc:mysql://localhost:3306/sampledb?useUnicode=true&characterEncoding=UTF-8</property>
+		<!--设置连接数据库的用户名-->
+		<property name="hibernate.connection.username">root</property>
+		<!--设置连接数据库的密码-->
+		<property name="hibernate.connection.password">123456</property>
+		<!--设置显示sql语句方便调试-->
+		<property name="hibernate.show_sql">true</property>
+		<!-- 配置映射 -->
+		<property name="configurationClass">org.hibernate.cfg.Configuration</property>
+		<mapping class="com.smart.domain.User" />
+		<mapping class="com.smart.domain.LoginLog" />
+	 </session-factory>
+</hibernate-configuration>
+

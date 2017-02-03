@@ -1,0 +1,9 @@
+<binding xmlns:bf="http://www.baobaotao.com/forum/schemas" name="binding"
+	package="com.smart.forum.schemas" trim-whitespace="true">
+	<namespace uri="http://www.smart.com/forum/schemas" default="elements"
+		prefix="bf" />
+	<mapping  class="com.smart.domain.User">
+		<value style="element" name="UserName" get-method="getUserName"
+			set-method="setUserName" />
+	</mapping>
+</binding>  

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xmlns:p="http://www.springframework.org/schema/p" xmlns:aop="http://www.springframework.org/schema/aop"
+	   xmlns:tx="http://www.springframework.org/schema/tx" xmlns:oxm="http://www.springframework.org/schema/oxm"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd http://www.springframework.org/schema/oxm http://www.springframework.org/schema/oxm/spring-oxm.xsd">
+
+<bean id="xstreamMarshaller" class="org.springframework.oxm.xstream.XStreamMarshaller"
+		p:autodetectAnnotations="true">
+		<!-- 设置类名别名 -->
+		<property name="aliases">
+			<map>
+				<!-- User这个类的别名就变成了user，那么转换后的xml中就是user -->
+				<entry key="user" value="com.smart.domain.User" />
+				<entry key="LoginLog" value="com.smart.domain.LoginLog" />
+			</map>
+		</property>
+		<!-- 设置基本属性别名 -->
+		<property name="fieldAliases">
+			<map>
+				<!-- User中的lastVisit这个属性 -->
+				<entry key="com.smart.domain.User.lastVisit" value="lastVisitDate" />
+			</map>
+		</property>
+	</bean>
+
+
+	<!-- xml视图,Jaxb2Marshaller,需要配置对象和对象添加Annotation xml注解，不需要添加额外的jar包 -->
+	<bean id="jaxb2Marshaller" class="org.springframework.oxm.jaxb.Jaxb2Marshaller">
+		<!--<property name="contextPath" value="com.smartain.jaxb"></property>-->
+		<property name="classesToBeBound">
+			<array>
+				<value>com.smart.domain.jaxb.User</value>
+				<value>com.smart.domain.jaxb.LoginLog</value>
+			</array>
+		</property>
+		<property name="schema" value="classpath:com/smart/oxm/jaxb/user.xsd" />
+	</bean>
+	<oxm:jaxb2-marshaller id="jaxb2Marshaller2">
+		<oxm:class-to-be-bound name="com.smart.domain.jaxb.User" />
+		<oxm:class-to-be-bound name="com.smart.domain.jaxb.LoginLog" />
+	</oxm:jaxb2-marshaller>
+
+
+	<bean id="castorMarshaller" class="org.springframework.oxm.castor.CastorMarshaller"
+		p:mappingLocation="classpath:/mapping.xml" />
+
+
+
+	<!--<bean id="jibxMarshaller" class="org.springframework.oxm.jibx.JibxMarshaller">
+		<property name="targetClass" value="com.smart.domain.User" />
+	&lt;!&ndash;<property name="bindingName" value="classpath:com/smart/oxm/jibx/binding.xml" />&ndash;&gt;
+	</bean>
+	<oxm:jibx-marshaller id="jibxMarshaller2" target-class="com.smart.domain.User" />-->
+		
+
+
+</beans>

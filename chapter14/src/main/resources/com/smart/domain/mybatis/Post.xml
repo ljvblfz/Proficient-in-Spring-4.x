@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.smart.dao.mybatis.PostMybatisDao">
+  <select id="getPost" resultType="Post" parameterType="int">
+    SELECT 
+	    post_id postId,
+	    user_id userId,
+	    post_text postText,
+	    post_attach postAttach,
+	    post_time postTime
+    FROM t_post
+    WHERE post_id =#{postId}
+  </select>     
+  <insert id="addPost" parameterType="Post">
+    INSERT INTO t_post(post_id,user_id,post_text,post_attach,post_time) 
+    VALUES(#{postId},#{userId},#{postText},#{postAttach},#{postTime})
+  </insert>
+</mapper>

@@ -1,0 +1,6 @@
+<com.smart.domain.User>
+  <userId>1</userId>
+  <userName>tom</userName>
+  <password>123456</password>
+  <credits>10</credits>
+</com.smart.domain.User>

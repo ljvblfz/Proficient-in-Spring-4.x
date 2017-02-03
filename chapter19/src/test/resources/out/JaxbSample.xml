@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<user>
+    <userName>jaxb</userName>
+    <credits>0</credits>
+    <logs>
+        <loginLog>
+            <ip>192.168.1.91</ip>
+            <loginDate>2011-11-03+08:00</loginDate>
+        </loginLog>
+        <loginLog>
+            <ip>192.168.1.92</ip>
+            <loginDate>2011-11-03+08:00</loginDate>
+        </loginLog>
+        <loginLog>
+            <ip>192.168.1.93</ip>
+            <loginDate>2011-11-03+08:00</loginDate>
+        </loginLog>
+    </logs>
+</user>

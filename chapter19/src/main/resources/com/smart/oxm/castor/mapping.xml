@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<!DOCTYPE mapping PUBLIC "-//EXOLAB/Castor Mapping DTD Version 1.0//EN"
+                        "http://castor.org/mapping.dtd">
+<mapping>
+	<class name="com.smart.domain.User">
+		<map-to xml="user" />
+		<field name="userId" type="int">
+			<bind-xml name="id" node="attribute" />
+		</field>
+		<field name="credits" type="int">
+			<bind-xml name="credits"  type="" />
+		</field>
+		<field name="userName" type="java.lang.String">
+			<bind-xml name="userName"  />
+		</field>
+		<field name="password" type="java.lang.String">
+			<bind-xml name="password"  />
+		</field>
+		<field name="lastIp" type="java.lang.String">
+			<bind-xml name="lastIp" />
+		</field>
+		<field name="lastVisit" type="date">
+			<bind-xml name="lastVisit" />
+		</field>
+		<field name="logs" type="com.smart.domain.LoginLog" collection="arraylist">
+			<bind-xml name="log" />
+		</field>  
+	</class>
+	<!--  class 元素的 identity 属性，通知 Castor 这个命名属性是该类实例的唯一标识符 -->
+	<!-- bind-xml 元素的 reference 属性，提供了对于该映射 Castor 所需要的另一部分链接信息。 reference 设为 true 的映射告诉 Castor 编组和解组引用对象的标识符，而不是对象本身的副本 -->
+	<!-- 通过在该元素中加入 auto-complete 属性并把值设为 true ，您可以告诉 Castor 对于该类的任何属性，只要没有在这个元素中专门列出，就使用默认映射 -->
+	<class name="com.smart.domain.LoginLog" identity="userId"  auto-complete="true">
+	    <map-to xml="logs" />
+	    <field name="loginLogId" type="int">
+			<bind-xml name="id" node="attribute" />
+		</field>
+		<field name="userId" type="int">
+			<bind-xml name="userId" />
+		</field><!--
+		<field name="ip" type="java.lang.String">
+			<bind-xml name="ip" />
+		</field>
+		<field name="loginDate" type="date">
+			<bind-xml name="loginDate" />
+		</field>
+	--></class>
+</mapping>
+

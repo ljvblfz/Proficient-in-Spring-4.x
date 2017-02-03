@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+    PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<settings>
+		<setting name="lazyLoadingEnabled" value="false" />
+	</settings>
+	<typeAliases>
+		<typeAlias alias="Forum" type="com.smart.domain.Forum" />
+		<typeAlias alias="Topic" type="com.smart.domain.Topic" />
+		<typeAlias alias="Post" type="com.smart.domain.Post" />
+	</typeAliases>
+</configuration>

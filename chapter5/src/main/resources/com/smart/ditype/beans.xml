@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+         http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
+	<!-- 属性注入 -->
+	<!--bean id="car" class="com.smart.ditype.Car">
+		<property name="brand" value="红旗&amp;CA72"/>
+		<property name="maxSpeed" value="200"/>
+		<property name="price" value="20000.00"/>
+	</bean>
+	<bean id="boss" class="com.smart.ditype.Boss">
+		<property name="car" ref="car"/>
+	</bean-->
+    
+    <bean id="car" class="com.smart.ditype.Car"
+      p:brand="红旗&amp;CA72"
+      p:maxSpeed="200"
+      p:price="20000.00"/>
+	<bean id="boss" class="com.smart.ditype.Boss"
+	  p:car-ref="car"/>
+
+     
+     <bean id="car2" class="com.smart.ditype.Car" p:brand="红旗&amp;CA72"
+		p:maxSpeed="200" p:price="100000" />
+
+
+	<bean id="boss2" class="com.smart.ditype.Boss">
+		<property name="name" value="John" />
+		<property name="car" ref="car" />
+	</bean>
+
+	<!--构造函数注入：type -->
+	<bean id="car1" class="com.smart.ditype.Car">
+		<constructor-arg type="java.lang.String">
+			<value>红旗CA72</value>
+		</constructor-arg>
+		<constructor-arg type="double">
+			<value>20000</value>
+		</constructor-arg>
+	</bean>
+
+	<!--
+		构造函数注入：index <bean id="car2" class="com.smart.ditype.Car">
+		<constructor-arg index="0" value="红旗CA72" /> <constructor-arg
+		index="1" value="中国一汽" /> <constructor-arg index="2" value="20000" />
+		</bean>
+	-->
+
+	<!--构造函数注入：type&index -->
+	<bean id="car3" class="com.smart.ditype.Car">
+		<constructor-arg index="0" type="java.lang.String">
+			<value>红旗CA72</value>
+		</constructor-arg>
+		<constructor-arg index="1" type="java.lang.String">
+			<value>中国一汽</value>
+		</constructor-arg>
+		<constructor-arg index="2" type="int">
+			<value>200</value>
+		</constructor-arg>
+	</bean>
+	<bean id="car4" class="com.smart.ditype.Car">
+		<constructor-arg index="0">
+			<value>红旗CA72</value>
+		</constructor-arg>
+		<constructor-arg index="1">
+			<value>中国一汽</value>
+		</constructor-arg>
+		<constructor-arg index="2" type="int">
+			<value>200</value>
+		</constructor-arg>
+	</bean>
+
+	<!--构造函数注入：自动识别入参类型 -->
+	<bean id="boss1" class="com.smart.ditype.Boss">
+		<constructor-arg>
+			<value>John</value>
+		</constructor-arg>
+		<constructor-arg>
+			<ref bean="car" />
+		</constructor-arg>
+		<constructor-arg>
+			<ref bean="office" />
+		</constructor-arg>
+	</bean>
+	<bean id="office" class="com.smart.ditype.Office" />
+
+	<!-- 工厂方法-->
+	<bean id="carFactory" class="com.smart.ditype.CarFactory" />
+	<bean id="car5" factory-bean="carFactory" factory-method="createHongQiCar">
+	</bean>
+	<bean id="car6" class="com.smart.ditype.CarFactory"
+		factory-method="createCar"></bean>
+
+</beans>

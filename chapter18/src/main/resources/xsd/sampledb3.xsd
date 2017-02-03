@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" xmlns="sampledb3" targetNamespace="sampledb3">
+	<xsd:element name="dbmaintain_scripts" type="dbmaintain_scripts__type" />
+	<xsd:element name="t_board_manager" type="t_board_manager__type" />
+	<xsd:element name="t_user" type="t_user__type" />
+	<xsd:element name="t_board" type="t_board__type" />
+	<xsd:element name="t_topic" type="t_topic__type" />
+	<xsd:element name="t_post" type="t_post__type" />
+	<xsd:element name="t_login_log" type="t_login_log__type" />
+	<xsd:complexType name="dbmaintain_scripts__type">
+		<xsd:attribute name="succeeded" use="optional" />
+		<xsd:attribute name="file_last_modified_at" use="optional" />
+		<xsd:attribute name="executed_at" use="optional" />
+		<xsd:attribute name="checksum" use="optional" />
+		<xsd:attribute name="file_name" use="optional" />
+		<xsd:attribute name="version" use="optional" />
+	</xsd:complexType>
+	<xsd:complexType name="t_board_manager__type">
+		<xsd:attribute name="user_id" use="optional" />
+		<xsd:attribute name="board_id" use="optional" />
+	</xsd:complexType>
+	<xsd:complexType name="t_user__type">
+		<xsd:attribute name="user_name" use="optional" />
+		<xsd:attribute name="last_ip" use="optional" />
+		<xsd:attribute name="user_type" use="optional" />
+		<xsd:attribute name="user_id" use="optional" />
+		<xsd:attribute name="last_visit" use="optional" />
+		<xsd:attribute name="locked" use="optional" />
+		<xsd:attribute name="credit" use="optional" />
+		<xsd:attribute name="password" use="optional" />
+	</xsd:complexType>
+	<xsd:complexType name="t_board__type">
+		<xsd:attribute name="board_desc" use="optional" />
+		<xsd:attribute name="board_id" use="optional" />
+		<xsd:attribute name="board_name" use="optional" />
+		<xsd:attribute name="topic_num" use="optional" />
+	</xsd:complexType>
+	<xsd:complexType name="t_topic__type">
+		<xsd:attribute name="last_post" use="optional" />
+		<xsd:attribute name="topic_replies" use="optional" />
+		<xsd:attribute name="create_time" use="optional" />
+		<xsd:attribute name="digest" use="optional" />
+		<xsd:attribute name="user_id" use="optional" />
+		<xsd:attribute name="board_id" use="optional" />
+		<xsd:attribute name="topic_id" use="optional" />
+		<xsd:attribute name="topic_views" use="optional" />
+		<xsd:attribute name="topic_title" use="optional" />
+	</xsd:complexType>
+	<xsd:complexType name="t_post__type">
+		<xsd:attribute name="post_text" use="optional" />
+		<xsd:attribute name="create_time" use="optional" />
+		<xsd:attribute name="post_type" use="optional" />
+		<xsd:attribute name="user_id" use="optional" />
+		<xsd:attribute name="topic_id" use="optional" />
+		<xsd:attribute name="board_id" use="optional" />
+		<xsd:attribute name="post_id" use="optional" />
+		<xsd:attribute name="post_title" use="optional" />
+	</xsd:complexType>
+	<xsd:complexType name="t_login_log__type">
+		<xsd:attribute name="login_log_id" use="optional" />
+		<xsd:attribute name="login_datetime" use="optional" />
+		<xsd:attribute name="user_id" use="optional" />
+		<xsd:attribute name="ip" use="optional" />
+	</xsd:complexType>
+</xsd:schema>

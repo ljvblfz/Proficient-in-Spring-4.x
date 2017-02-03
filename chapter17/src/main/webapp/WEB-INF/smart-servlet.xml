@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd
+        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+        ">
+
+    <context:component-scan base-package="com.smart.web"/>
+
+    <!-- 在使用Excel PDF的视图时，请先把这个视图解析器注释掉，否则产生视图解析问题-->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+          p:order="100" p:viewClass="org.springframework.web.servlet.view.JstlView"
+          p:prefix="/WEB-INF/views/" p:suffix=".jsp"/>
+
+    <mvc:annotation-driven conversion-service="conversionService"/>
+
+    <!--国际化资源  -->
+    <bean id="messageSource"
+          class="org.springframework.context.support.ResourceBundleMessageSource">
+        <property name="basenames">
+            <list>
+                <value>i18n/messages</value>
+                <value>i18n/content</value>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="conversionService"
+          class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+        <property name="converters">
+            <list>
+                <bean class="com.smart.domain.StringToUserConverter"/>
+            </list>
+        </property>
+    </bean>
+
+    <bean
+            class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter"
+            p:messageConverters-ref="messageConverters">
+        <property name="webBindingInitializer">
+            <bean class="com.smart.web.MyBindingInitializer"/>
+        </property>
+    </bean>
+
+
+    <util:list id="messageConverters">
+        <bean
+                class="org.springframework.http.converter.BufferedImageHttpMessageConverter"/>
+        <bean
+                class="org.springframework.http.converter.ByteArrayHttpMessageConverter"/>
+        <bean class="org.springframework.http.converter.StringHttpMessageConverter"/>
+        <bean
+                class="org.springframework.http.converter.support.AllEncompassingFormHttpMessageConverter"/>
+        <bean
+                class="org.springframework.http.converter.xml.MarshallingHttpMessageConverter"
+                p:marshaller-ref="xmlMarshaller" p:unmarshaller-ref="xmlMarshaller">
+        </bean>
+        <bean
+                class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"/>
+    </util:list>
+
+    <bean id="xmlMarshaller" class="org.springframework.oxm.xstream.XStreamMarshaller">
+        <property name="streamDriver">
+            <bean class="com.thoughtworks.xstream.io.xml.StaxDriver"/>
+        </property>
+        <property name="annotatedClasses">
+            <list>
+                <value>com.smart.domain.User</value>
+            </list>
+        </property>
+    </bean>
+
+
+    <!-- FreeMarker基础设施及视图解析器配置 -->
+    <bean
+            class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer"
+            p:templateLoaderPath="/WEB-INF/ftl" p:defaultEncoding="UTF-8">
+        <property name="freemarkerSettings">
+            <props>
+                <prop key="classic_compatible">true</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean
+            class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver"
+            p:order="5" p:suffix=".ftl" p:contentType="text/html; charset=utf-8"/>
+
+    <!-- Excel及PDF视图解析器配置 -->
+    <bean class="org.springframework.web.servlet.view.BeanNameViewResolver"
+          p:order="10"/>
+    <bean id="userListExcel" class="com.smart.web.UserListExcelView"/>
+    <bean id="userListPdf" class="com.smart.web.UserListPdfView"/>
+
+    <!-- XMl及JSON视图解析器配置 -->
+    <bean id="userListJson"
+          class="org.springframework.web.servlet.view.json.MappingJackson2JsonView"
+          p:modelKeys="userList"/>
+
+    <bean id="userListXml"
+          class="org.springframework.web.servlet.view.xml.MarshallingView"
+          p:modelKey="userList" p:marshaller-ref="xmlMarshaller"/>
+
+    <!-- XML文件或国际化资源文件定义视图 -->
+    <bean class="org.springframework.web.servlet.view.XmlViewResolver"
+          p:order="20" p:location="/WEB-INF/views/smart-views.xml"/>
+
+    <bean class="org.springframework.web.servlet.view.ResourceBundleViewResolver"
+          p:order="30" p:basename="/i18n/views"/>
+
+    <bean id="contentNegotiationManager"
+          class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean"
+          p:ignoreAcceptHeader="true"
+          p:favorPathExtension="false"
+          p:favorParameter="true"
+          p:parameterName="format"
+          p:defaultContentType="text/html">
+        <property name="mediaTypes">
+            <value>
+                html=text/html
+                xml=application/xml
+                json=application/json
+            </value>
+        </property>
+    </bean>
+    <!-- 协商多种视图解析器 -->
+    <bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver" p:order="0">
+        <property name="contentNegotiationManager" ref="contentNegotiationManager"/>
+        <property name="defaultViews">
+            <list>
+                <bean class="org.springframework.web.servlet.view.json.MappingJackson2JsonView"
+                      p:modelKeys="userList"/>
+                <bean class="org.springframework.web.servlet.view.xml.MarshallingView"
+                      p:modelKey="userList" p:marshaller-ref="xmlMarshaller"/>
+            </list>
+        </property>
+    </bean>
+
+    <!-- 本地化解析 -->
+    <bean id="localeResolver"
+          class="org.springframework.web.servlet.i18n.CookieLocaleResolver"
+          p:cookieName="clientLanguage"
+          p:cookieMaxAge="100000"
+          p:cookiePath="/"
+          p:defaultLocale="zh_CN"/>
+    <mvc:interceptors>
+        <bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor"/>
+    </mvc:interceptors>
+
+    <!-- 文件上传 -->
+    <bean id="multipartResolver"
+          class="org.springframework.web.multipart.commons.CommonsMultipartResolver"
+          p:defaultEncoding="UTF-8"
+          p:maxUploadSize="5000000"
+          p:uploadTempDir="upload/temp"/>
+
+
+    <!-- 静态资源映射-->
+    <mvc:default-servlet-handler/>
+    <bean id="rpe" class="com.smart.web.ResourcePathExposer"
+          init-method="init"/>
+    <mvc:resources mapping="#{rpe.resourceRoot}/**"
+                   location="/" cache-period="31536000"/>
+
+</beans>

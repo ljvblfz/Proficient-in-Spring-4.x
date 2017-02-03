@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<aspectj>
+	<aspects>
+		<aspect
+			name="org.springframework.transaction.aspectj.AnnotationTransactionAspect" />
+	    </aspects>
+	<weaver
+		options="-showWeaveInfo -XmessageHandlerClass:org.springframework.aop.aspectj.AspectJWeaverMessageHandler">
+		<include within="com.smart.servie.impl.*" />
+	</weaver>
+</aspectj>
